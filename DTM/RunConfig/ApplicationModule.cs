@@ -2,7 +2,7 @@
 using DTM.User;
 using Ninject.Modules;
 
-namespace DTM
+namespace DTM.RunConfig
 {
     public class ApplicationModule : NinjectModule
     {

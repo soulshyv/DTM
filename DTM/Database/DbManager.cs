@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DTM.User;
 using MySql.Data.MySqlClient;
 
 namespace DTM.Database
@@ -8,7 +7,6 @@ namespace DTM.Database
     public sealed class DbManager : IDbManager
     {
         private const string ConnectionString = @"server=localhost;user=root;database=jdr;password=0SoulshyV0";
-        private MySqlConnection Conn { get; }
         private static readonly DbManager Instance = new DbManager();
 
         private DbManager()
@@ -25,10 +23,7 @@ namespace DTM.Database
             }
         }
 
-        public static DbManager GetInstance()
-        {
-            return Instance;
-        }
+        private MySqlConnection Conn { get; }
 
         public async Task<string> GetUser(string username)
         {
@@ -40,7 +35,7 @@ namespace DTM.Database
             if (reader == null)
                 throw new Exception("Une erreur est survenue");
 
-            if(reader.HasRows && reader.FieldCount == 1)
+            if (reader.HasRows && reader.FieldCount == 1)
                 return reader["Password"].ToString();
 
             return null;
@@ -144,6 +139,11 @@ namespace DTM.Database
         public async Task GetElementPerso(object perso)
         {
             await Task.CompletedTask;
+        }
+
+        public static DbManager GetInstance()
+        {
+            return Instance;
         }
     }
 }
