@@ -75,6 +75,9 @@
     <EmbeddedResource Include="Forms\DtmLoginWindow.resx">
       <DependentUpon>DtmLoginWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DtmMainWindow.resx">
+      <DependentUpon>DtmMainWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

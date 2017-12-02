@@ -9,7 +9,7 @@ namespace DTM.Database
     {
         private const string ConnectionString = @"Server=localhost;Port=3306;Database=jdr;Uid=root;Pwd=root";
 
-        public DbManager(IMd5Encryption encryption)
+        public DbManager()
         {
             try
             {
@@ -21,12 +21,9 @@ namespace DTM.Database
                 Conn.Close();
                 throw new Exception("Une erreur est survenue pendant la connexion à la base de données");
             }
-
-            Encryption = encryption;
         }
 
         private MySqlConnection Conn { get; }
-        public IMd5Encryption Encryption { get; }
 
         public async Task<string> GetUser(string username)
         {
