@@ -25,7 +25,7 @@ namespace DTM.User
         {
             var res = await DbManager.GetUser(username);
             if (res == null) return -1;
-            if (Encryption.Encrypt(res) != password) return 0;
+            if (Encryption.Encrypt(password) != res) return 0;
             UserName = username;
             Password = password;
             IsConnected = true;

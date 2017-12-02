@@ -40,7 +40,9 @@
             this.ClientSize = new System.Drawing.Size(585, 316);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DtmMainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DtmMainWindow";
+            this.Load += new System.EventHandler(this.DtmMainWindow_Load);
             this.ResumeLayout(false);
 
         }

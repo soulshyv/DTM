@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DTM.Database;
 using DTM.Properties;
+using DTM.RunConfig;
 using DTM.User;
 
 namespace DTM.Forms
@@ -16,6 +17,7 @@ namespace DTM.Forms
             InitializeComponent();
         }
 
+        public Form Parent { get;set; }
         private IDbManager DbManager { get; set; }
         private UserManager UserManager { get; set; }
 
@@ -42,8 +44,8 @@ namespace DTM.Forms
             {
                 if (UserManager.IsConnected)
                 {
-                    var dtmMainWindow = new DtmMainWindow();
-                    dtmMainWindow.Show();
+                    Parent.Show();
+                    Close();
                 }
                 else
                 {
@@ -60,8 +62,8 @@ namespace DTM.Forms
                             Login_Error.Visible = true;
                             break;
                         default:
-                            var dtmMainWindow = new DtmMainWindow();
-                            dtmMainWindow.Show();
+                            Parent.Show();
+                            Close();
                             break;
                     }
                 }

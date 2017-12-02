@@ -12,10 +12,13 @@ namespace DTM.RunConfig
 
         public static void Init()
         {
+            Container.Register<IMd5Encryption, Md5Encryption>(Lifestyle.Scoped);
+            Container.Register<IDbManager, DbManager>(Lifestyle.Scoped);
             Container.Register<IUserManager, UserManager>(Lifestyle.Singleton);
-            Container.Register<IMd5Encryption, Md5Encryption>();
-            Container.Register<IDbManager, DbManager>(Lifestyle.Singleton);
-            Container.Register<DtmLoginWindow>();
+            Container.Register<DtmLoginWindow>(Lifestyle.Scoped);
+            Container.Register<DtmMainWindow>();
+
+            Container.Verify();
         }
     }
 }

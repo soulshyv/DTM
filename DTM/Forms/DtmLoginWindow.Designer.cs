@@ -69,6 +69,7 @@
             // 
             this.Login_Pwd.Location = new System.Drawing.Point(211, 243);
             this.Login_Pwd.Name = "Login_Pwd";
+            this.Login_Pwd.PasswordChar = '*';
             this.Login_Pwd.Size = new System.Drawing.Size(170, 20);
             this.Login_Pwd.TabIndex = 4;
             // 
