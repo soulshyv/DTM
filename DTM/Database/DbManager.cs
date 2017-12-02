@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DTM.Encryption;
 using MySql.Data.MySqlClient;
 
 namespace DTM.Database
 {
     public sealed class DbManager : IDbManager
     {
-        private const string ConnectionString = @"server=localhost;user=root;database=jdr;password=0SoulshyV0";
-        private static readonly DbManager Instance = new DbManager();
+        private const string ConnectionString = @"Server=localhost;Port=3306;Database=jdr;Uid=root;Pwd=root";
 
-        private DbManager()
+        public DbManager(IMd5Encryption encryption)
         {
             try
             {
@@ -21,13 +21,16 @@ namespace DTM.Database
                 Conn.Close();
                 throw new Exception("Une erreur est survenue pendant la connexion à la base de données");
             }
+
+            Encryption = encryption;
         }
 
         private MySqlConnection Conn { get; }
+        public IMd5Encryption Encryption { get; }
 
         public async Task<string> GetUser(string username)
         {
-            const string sql = @"SELECT Password FROM Users WHERE UserName=@username";
+            const string sql = @"SELECT Pwd FROM Users WHERE UserName=@username";
             var cmd = new MySqlCommand(sql, Conn);
             cmd.Parameters.AddWithValue("@username", username);
             var reader = await cmd.ExecuteReaderAsync();
@@ -35,10 +38,16 @@ namespace DTM.Database
             if (reader == null)
                 throw new Exception("Une erreur est survenue");
 
-            if (reader.HasRows && reader.FieldCount == 1)
-                return reader["Password"].ToString();
+            if (!reader.HasRows || reader.FieldCount != 1)
+            {
+                reader.Close();
+                return null;
+            }
 
-            return null;
+            reader.Read();
+            var ret = reader["Pwd"].ToString();
+            reader.Close();
+            return ret;
         }
 
         public async Task GetAllPerso(object perso)
@@ -141,9 +150,9 @@ namespace DTM.Database
             await Task.CompletedTask;
         }
 
-        public static DbManager GetInstance()
-        {
-            return Instance;
-        }
+        //public static DbManager GetInstance()
+        //{
+        //    return Instance;
+        //}
     }
 }
